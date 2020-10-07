@@ -38,7 +38,7 @@ Get-InstalledScript
 help Add-UsersToTeamsFromCSVFile.ps1
 ```
 
-# Installation on macOS
+# Installation of the script on macOS
 
 Install latest PowerShell using [brew](https://brew.sh) and start the PowerShell.
 
