@@ -11,11 +11,11 @@
 
 .COPYRIGHT
 
-.TAGS MicrosoftTeams Teams Channels Private-Channel Import CSV
+.TAGS MicrosoftTeams Teams Private-Channel Import CSV
 
 .LICENSEURI
 
-.PROJECTURI
+.PROJECTURI https://github.com/waltervanheuven/Add-UsersToTeamsFromCSVFile
 
 .ICONURI
 
@@ -28,12 +28,11 @@ MicrosoftTeams
 
 .RELEASENOTES
 06 October 2020: 1.0 First release
+08 October 2020: 1.01
 
 .PRIVATEDATA
 
 #>
-
-#Requires -Module @{ModuleName = 'MicrosoftTeams'; RequiredVersion = '1.1.5'}
 
 <#
 
@@ -117,6 +116,9 @@ Add-UsersToTeamsFromCSVFile.ps1 .\users.csv -Debug
 Script provides also debug information. Useful when errors occur.
 
 #>
+
+#Requires -Module @{ModuleName = 'MicrosoftTeams'; RequiredVersion = '1.1.5'}
+
 Param (
 	[Parameter(ParameterSetName = "Inputparameter", Position = 0, HelpMessage="Input CSV file: ", Mandatory = $true)]
 	[String] $CSVFileToProcess
