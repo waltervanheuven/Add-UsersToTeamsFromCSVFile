@@ -6,11 +6,11 @@ You can install the script by downloading the script from this github page or by
 
 [https://www.powershellgallery.com/packages/Add-UsersToTeamsFromCSVFile](https://www.powershellgallery.com/packages/Add-UsersToTeamsFromCSVFile/) 
 
-# Installation Instructions for Windows
+## Installation Instructions for Windows
 
 Assuming PowerShell 5.1 (installed on Windows 10)
 
-Run PowerShell as Administrator
+Run PowerShell as Administrator, enable powershell script execution and update module to download scripts and modules from the PowerShell Gallery.
 
 ```powershell
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
@@ -73,4 +73,10 @@ Start script then with:
 
 ```powershell
 /Users/[YOUR_USERNAME]/.local/share/powershell/Scripts/Add-UsersToTeamsFromCSVFile.ps1
+```
+
+## Update script
+
+```powershell
+Update-Script Add-UsersToTeamsFromCSVFile
 ```

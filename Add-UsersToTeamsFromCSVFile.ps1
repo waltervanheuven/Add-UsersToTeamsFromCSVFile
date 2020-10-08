@@ -1,7 +1,7 @@
 
 <#PSScriptInfo
 
-.VERSION 1.01
+.VERSION 1.2
 
 .GUID 026e9227-935f-4717-8eea-97813f59400c
 
@@ -28,7 +28,8 @@ MicrosoftTeams
 
 .RELEASENOTES
 06 October 2020: 1.0 First release
-08 October 2020: 1.01
+08 October 2020: 1.1
+08 October 2020: 1.2
 
 .PRIVATEDATA
 
