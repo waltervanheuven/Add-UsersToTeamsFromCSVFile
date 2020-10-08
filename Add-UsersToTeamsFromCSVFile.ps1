@@ -58,8 +58,9 @@ First line of CSV file is a header indicating the column names: email, team, pri
 
 An additional column in the CSV file 'role' is optional, default role of user added is Member.
 
-The team column should indate the name of the team and the privatechannel should indicate the name of the private channel.
-Note that when a user is not a member of the team it will be added to the team first before it is added to the private channel.
+The team column should indate the name of the team and the privatechannel should indicate
+the name of the private channel. Note that when a user is not a member of the team it will
+be added to the team first before it is added to the private channel.
 
 Script reports start and end time as well as the number of users added to teams and channels.
 
@@ -70,6 +71,7 @@ Name of the CSV file with at least two columns: email, team
 Add-UsersToTeamsFromCSVFile.ps1 -CSVFileToProcess .\students.csv
 
 students.csv
+
 	email, team
 	student1@university.ac.uk, Module1 Team
 	student2@university.ac.uk, Module1 Team
@@ -84,6 +86,7 @@ Add-UsersToTeamsFromCSVFile.ps1 .\students.csv
 -CSVFileToProcess is optional.
 
 Content of file: students.csv
+
 	email, team
 	student1@university.ac.uk, Module1 Team
 	student2@university.ac.uk, Module1 Team
@@ -94,6 +97,7 @@ Script adds two students to the team: Module1 Team.
 Add-UsersToTeamsFromCSVFile.ps1 .\students.csv
 
 Content of file: students.csv
+
 	email, team, privatechannel
 	student1@university.ac.uk, Module1 Team, Lab1
 	student2@university.ac.uk, Module1 Team, Lab2
@@ -104,6 +108,7 @@ Script adds two students to private channels within the same team.
 Add-UsersToTeamsFromCSVFile.ps1 .\users.csv
 
 Content of file: users.csv
+
 	email, team, privatechannel, role
 	student1@university.ac.uk, Module1 Team, Lab1, Member
 	lab.demonstrator1@university.ac.uk, Module1 Team, Lab1, Member
