@@ -1,7 +1,7 @@
 
 <#PSScriptInfo
 
-.VERSION 1.2
+.VERSION 1.3
 
 .GUID 026e9227-935f-4717-8eea-97813f59400c
 
@@ -30,6 +30,7 @@ MicrosoftTeams
 06 October 2020: 1.0 First release
 08 October 2020: 1.1
 08 October 2020: 1.2
+09 October 2020: 1.3
 
 .PRIVATEDATA
 
@@ -182,7 +183,7 @@ if (Test-Path -LiteralPath $CSVFileToProcess -PathType Leaf) {
 				$theEmail = $line.email
 			}
 			catch {
-				Write-Error "Line $n, email: '$line.email' not in not a valid email address"
+				Write-Error "Line $n, email: '$($line.email)' not in not a valid email address"
 				EXIT
 			}
 		}
@@ -235,6 +236,7 @@ if (Test-Path -LiteralPath $CSVFileToProcess -PathType Leaf) {
 				$changedTeam = 1
 			}
 			catch {
+				Write-Error $_.Exception.Message
 				Write-Error "Line $n, Get-Team: Unable to connect to MicrosoftTeams (AzureCloud)"
 				Write-Error "Before running this script enter: Connect-MicrosoftTeams"
 				EXIT
@@ -261,7 +263,8 @@ if (Test-Path -LiteralPath $CSVFileToProcess -PathType Leaf) {
 				}
 			}
 			catch {
-				Write-Error "Line $n, Add-TeamUser: Unable to connect to MicrosoftTeams (AzureCloud)"
+				Write-Error $_.Exception.Message
+				Write-Error "Line $n, Error when executing Add-TeamUser"
 				EXIT
 			}
 		}
@@ -282,7 +285,8 @@ if (Test-Path -LiteralPath $CSVFileToProcess -PathType Leaf) {
 					}
 				}
 				catch {
-					Write-Error "Line $n, Get-TeamChannelUser: Unable to connect to MicrosoftTeams (AzureCloud)"
+					Write-Error $_.Exception.Message
+					Write-Error "Line $n, Error when executing Get-TeamChannelUser"
 					EXIT
 				}
 				$currentChannel = $theChannel
@@ -307,7 +311,8 @@ if (Test-Path -LiteralPath $CSVFileToProcess -PathType Leaf) {
 				}
 			}
 				catch {
-					Write-Error "Line $n, Add-TeamChannelUser: Unable to connect to MicrosoftTeams (AzureCloud)"
+					Write-Error $_.Exception.Message
+					Write-Error "Line $n, Error when executing Add-TeamChannelUser"
 					EXIT
 				}
 			}
