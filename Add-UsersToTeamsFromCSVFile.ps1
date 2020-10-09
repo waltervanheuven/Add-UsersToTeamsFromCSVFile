@@ -177,7 +177,14 @@ if (Test-Path -LiteralPath $CSVFileToProcess -PathType Leaf) {
 			Write-Error "Line $n, column 'email' is empty or column 'email' is missing"
 			EXIT
 		} else {
-			$theEmail = $line.email
+			try {
+				$null = [mailaddress]$line.email
+				$theEmail = $line.email
+			}
+			catch {
+				Write-Error "Line $n, email: '$line.email' not in not a valid email address"
+				EXIT
+			}
 		}
 		if ([string]::IsNullOrEmpty($line.team)) {
 			Write-Error "Line $n, column 'team' is empty or column 'team' missing"
