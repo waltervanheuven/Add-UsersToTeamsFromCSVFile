@@ -8,8 +8,6 @@ You can install the script by downloading the script from this github page or by
 
 ## Installation Instructions for Windows
 
-Assuming PowerShell 5.1 (installed on Windows 10)
-
 Run PowerShell as Administrator, enable powershell script execution and update module to download scripts and modules from the PowerShell Gallery.
 
 ```powershell
@@ -18,27 +16,27 @@ Set-PSRepository PSGallery -InstallationPolicy Trusted
 Install-Module -Name PowerShellGet -Repository PSGallery -Scope CurrentUser -Force -AllowClobber
 ```
 
-## Restart PowerShell, next install MicrosoftTeams and check installed modules
+### Restart PowerShell, next install MicrosoftTeams and check installed modules
 
 ```powershell
 Install-Module -Name MicrosoftTeams -RequiredVersion 1.1.5-preview -AllowPrerelease -force -AllowClobber -Scope CurrentUser
 Get-Module -ListAvailable
 ```
 
-## Install Add-UsersToTeamsFromCSVFile and check installed scripts
+### Install Add-UsersToTeamsFromCSVFile and check installed scripts
 
 ```powershell
 Install-Script -Name Add-UsersToTeamsFromCSVFile
 Get-InstalledScript
 ```
 
-## Show Help
+### Show Help
 
 ```powershell
 help Add-UsersToTeamsFromCSVFile.ps1
 ```
 
-# Installation of the script on macOS
+## Installation of the script on macOS
 
 Install latest PowerShell using [brew](https://brew.sh) and start the PowerShell.
 
@@ -47,33 +45,29 @@ brew cask install powershell
 pwsh
 ```
 
-## Install MicrosoftTeams and check the installed modules
+### Install MicrosoftTeams and check the installed modules
 
 ```powershell
 Install-Module -Name MicrosoftTeams -RequiredVersion 1.1.5-preview -AllowPrerelease -force -AllowClobber
 Get-Module -ListAvailable
 ```
 
-## Install Add-UsersToTeamsFromCSVFile from the PowerShellGallery and check installed scripts
+### Install Add-UsersToTeamsFromCSVFile from the PowerShellGallery and check installed scripts
 
 ```powershell
 Install-Script -Name Add-UsersToTeamsFromCSVFile
 Get-InstalledScript
 ```
 
-Note that there is an issue with the PowerShell on macOS. The script path is not included in the search path and therefore installed scripts from the [powershellgallery](https://www.powershellgallery.com) are not found. You can find the installed location of the script using this command
+Get installed location of powershell gallery scripts.
 
 ```powershell
 Get-InstalledScript -Name "Add-UsersToTeamsFromCSVFile" | Format-List InstalledLocation
 ```
 
-Use that location when starting the script.
+Add script path `/Users/[YOUR_USERNAME]/.local/share/powershell/Scripts/` to the path: `$env:PATH += ":/Users/[YOUR_USERNAME]/.local/share/powershell/Scripts/"`.
 
-Start script then with:
-
-```powershell
-/Users/[YOUR_USERNAME]/.local/share/powershell/Scripts/Add-UsersToTeamsFromCSVFile.ps1
-```
+Start script then with `Add-UsersToTeamsFromCSVFile.ps1`.
 
 ## Update script
 
