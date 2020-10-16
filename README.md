@@ -87,7 +87,7 @@ student1@university.ac.uk, Module2 Team
 student2@university.ac.uk, Module2 Team
 ```
 
-To add users to a private channel in a team, the CSV file needs to have the columns 'email', 'team', and 'privatechannel'.
+To add users to a private channel in a team, the CSV file needs to have the columns 'email', 'team', and 'privatechannel'. If a user is not a member of the team they will be added to the team first and then to the private channel within the team.
 
 ```txt
 email, team, privatechannel
