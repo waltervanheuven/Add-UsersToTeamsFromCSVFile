@@ -1,7 +1,7 @@
 
 <#PSScriptInfo
 
-.VERSION 1.3
+.VERSION 1.4
 
 .GUID 026e9227-935f-4717-8eea-97813f59400c
 
@@ -31,6 +31,7 @@ MicrosoftTeams
 08 October 2020: 1.1
 08 October 2020: 1.2
 09 October 2020: 1.3
+16 October 2020: 1.4
 
 .PRIVATEDATA
 
@@ -157,7 +158,7 @@ if (Test-Path -LiteralPath $CSVFileToProcess -PathType Leaf) {
 	}
 
 	#
-	$n = 1
+	$n = 2
 	$addedTeamMembers = 0
 	$addedChannelMembers = 0
 	$currentTeam = ""
