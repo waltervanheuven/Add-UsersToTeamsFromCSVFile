@@ -4,7 +4,7 @@
 
 You can install the script by downloading the script from this github page or by installing it directly from the PowerShell Gallery:
 
-[https://www.powershellgallery.com/packages/Add-UsersToTeamsFromCSVFile](https://www.powershellgallery.com/packages/Add-UsersToTeamsFromCSVFile/) 
+[https://www.powershellgallery.com/packages/Add-UsersToTeamsFromCSVFile](https://www.powershellgallery.com/packages/Add-UsersToTeamsFromCSVFile/1.3
 
 ## Installation Instructions for Windows
 
@@ -69,8 +69,38 @@ Add script path `/Users/[YOUR_USERNAME]/.local/share/powershell/Scripts/` to the
 
 Start script then with `Add-UsersToTeamsFromCSVFile.ps1`.
 
-## Update script
+## Update script to latest version
 
 ```powershell
 Update-Script Add-UsersToTeamsFromCSVFile
+```
+
+## CSV file
+
+The script requires a [CSV](https://en.wikipedia.org/wiki/Comma-separated_values) file. This file should contain a header with the names of the columns. To add users to a team, the CSV file needs to have the columns 'email' and 'team'.
+
+```txt
+email, team
+student1@university.ac.uk, Module1 Team
+student2@university.ac.uk, Module1 Team
+student1@university.ac.uk, Module2 Team
+student2@university.ac.uk, Module2 Team
+```
+
+To add users to a private channel in a team, the CSV file needs to have the columns 'email', 'team', and 'privatechannel'.
+
+```txt
+email, team, privatechannel
+student1@university.ac.uk, Seminar Group, Channel1
+student2@university.ac.uk, Seminar Group, Channel1
+student3@university.ac.uk, Seminar Group, Channel2
+student4@university.ac.uk, Seminar Group, Channel2
+```
+
+Note that the CSV file can have additional columns.
+
+## Usage
+
+```powershell
+Add-UsersToTeamsFromCSVFile.ps1 students.csv
 ```
