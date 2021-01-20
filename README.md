@@ -8,15 +8,9 @@ You can install the script by downloading the script from this github page or by
 
 ## Installation Instructions for Windows
 
-Run PowerShell as Administrator, enable powershell script execution and update module to download scripts and modules from the PowerShell Gallery.
+Download and install the latest version (7.1) of the PowerShell from [github.com/PowerShell/PowerShell](https://github.com/PowerShell/PowerShell)
 
-```powershell
-Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
-Set-PSRepository PSGallery -InstallationPolicy Trusted
-Install-Module -Name PowerShellGet -Repository PSGallery -Scope CurrentUser -Force -AllowClobber
-```
-
-### Restart PowerShell, next install MicrosoftTeams and check installed modules
+### Start PowerShell 7 from the Start Menu, next install MicrosoftTeams and check installed modules
 
 ```powershell
 Install-Module -Name MicrosoftTeams -RequiredVersion 1.1.5-preview -AllowPrerelease -force -AllowClobber -Scope CurrentUser
@@ -38,10 +32,10 @@ help Add-UsersToTeamsFromCSVFile.ps1
 
 ## Installation of the script on macOS
 
-Install latest PowerShell using [brew](https://brew.sh) and start the PowerShell.
+Install the latest PowerShell using [brew](https://brew.sh) and start the PowerShell in the Terminal.
 
 ```bash
-brew cask install powershell
+brew install powershell
 pwsh
 ```
 
@@ -102,5 +96,8 @@ Note that the CSV file can have additional columns.
 ## Usage
 
 ```powershell
+# Connect first to Microsoft Teams, go to https://microsoft.com/devicelogin and enter code
+Connect-MicrosoftTeams
+# run script
 Add-UsersToTeamsFromCSVFile.ps1 students.csv
 ```

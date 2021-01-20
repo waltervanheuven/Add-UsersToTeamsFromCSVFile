@@ -32,6 +32,7 @@ MicrosoftTeams
 08 October 2020: 1.2
 09 October 2020: 1.3
 16 October 2020: 1.4
+12 January 2021: 1.5 bug fixes
 
 .PRIVATEDATA
 
@@ -256,6 +257,7 @@ if (Test-Path -LiteralPath $CSVFileToProcess -PathType Leaf) {
 				Add-TeamUser -GroupId $grpid -User $theEmail -Role $theRole
 				Write-Output "Line $n, added: $theEmail, role: $theRole to team: $theTeam"
 				$addedTeamMembers += 1
+				
 				[void] $currentTeamMembers.Add($theEmail)
 
 				if ($PSBoundParameters.ContainsKey('Debug')) {
@@ -309,8 +311,8 @@ if (Test-Path -LiteralPath $CSVFileToProcess -PathType Leaf) {
 					if ($PSBoundParameters.ContainsKey('Debug')) {
 						Write-Debug "Private channel members:"
 						$currentChannelMembers | Write-Debug
+					}
 				}
-			}
 				catch {
 					Write-Error $_.Exception.Message
 					Write-Error "Line $n, Error when executing Add-TeamChannelUser"
