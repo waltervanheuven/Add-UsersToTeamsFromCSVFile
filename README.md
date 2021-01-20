@@ -13,15 +13,13 @@ Download and install the latest version (7.1) of the PowerShell from [github.com
 ### Start PowerShell 7 from the Start Menu, next install MicrosoftTeams and check installed modules
 
 ```powershell
-Install-Module -Name MicrosoftTeams -RequiredVersion 1.1.5-preview -AllowPrerelease -force -AllowClobber -Scope CurrentUser
-Get-Module -ListAvailable
+Install-Module -Name MicrosoftTeams -RequiredVersion 1.1.10-preview -AllowPrerelease
 ```
 
 ### Install Add-UsersToTeamsFromCSVFile and check installed scripts
 
 ```powershell
 Install-Script -Name Add-UsersToTeamsFromCSVFile
-Get-InstalledScript
 ```
 
 ### Show Help
@@ -42,15 +40,13 @@ pwsh
 ### Install MicrosoftTeams and check the installed modules
 
 ```powershell
-Install-Module -Name MicrosoftTeams -RequiredVersion 1.1.5-preview -AllowPrerelease -force -AllowClobber
-Get-Module -ListAvailable
+Install-Module -Name MicrosoftTeams -RequiredVersion 1.1.10-preview -AllowPrerelease
 ```
 
 ### Install Add-UsersToTeamsFromCSVFile from the PowerShellGallery and check installed scripts
 
 ```powershell
 Install-Script -Name Add-UsersToTeamsFromCSVFile
-Get-InstalledScript
 ```
 
 Get installed location of powershell gallery scripts.
@@ -63,6 +59,13 @@ Add script path `/Users/[YOUR_USERNAME]/.local/share/powershell/Scripts/` to the
 
 Start script then with `Add-UsersToTeamsFromCSVFile.ps1`.
 
+## Check that MicrosoftTeams module and Add-UsersToTeamsFromCSVFile.ps1 script are installed
+
+```powershell
+Get-Module -ListAvailable
+Get-InstalledScript
+```
+
 ## Update script to latest version
 
 ```powershell
@@ -74,21 +77,21 @@ Update-Script Add-UsersToTeamsFromCSVFile
 The script requires a [CSV](https://en.wikipedia.org/wiki/Comma-separated_values) file. This file should contain a header with the names of the columns. To add users to a team, the CSV file needs to have the columns 'email' and 'team'.
 
 ```txt
-email, team
-student1@university.ac.uk, Module1 Team
-student2@university.ac.uk, Module1 Team
-student1@university.ac.uk, Module2 Team
-student2@university.ac.uk, Module2 Team
+email,team
+student1@university.ac.uk,Module1 Team
+student2@university.ac.uk,Module1 Team
+student1@university.ac.uk,Module2 Team
+student2@university.ac.uk,Module2 Team
 ```
 
 To add users to a private channel in a team, the CSV file needs to have the columns 'email', 'team', and 'privatechannel'. If a user is not a member of the team they will be added to the team first and then to the private channel within the team.
 
 ```txt
-email, team, privatechannel
-student1@university.ac.uk, Seminar Group, Channel1
-student2@university.ac.uk, Seminar Group, Channel1
-student3@university.ac.uk, Seminar Group, Channel2
-student4@university.ac.uk, Seminar Group, Channel2
+email,team,privatechannel
+student1@university.ac.uk,Seminar Group,Channel1
+student2@university.ac.uk,Seminar Group,Channel1
+student3@university.ac.uk,Seminar Group,Channel2
+student4@university.ac.uk,Seminar Group,Channel2
 ```
 
 Note that the CSV file can have additional columns.
@@ -96,8 +99,9 @@ Note that the CSV file can have additional columns.
 ## Usage
 
 ```powershell
-# Connect first to Microsoft Teams, go to https://microsoft.com/devicelogin and enter code
+# Sign in to Microsoft Teams (AzureCloud)
 Connect-MicrosoftTeams
+
 # run script
 Add-UsersToTeamsFromCSVFile.ps1 students.csv
 ```
