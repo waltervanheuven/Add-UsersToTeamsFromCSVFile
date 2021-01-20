@@ -32,7 +32,7 @@ MicrosoftTeams
 08 October 2020: 1.2
 09 October 2020: 1.3
 16 October 2020: 1.4
-12 January 2021: 1.5 bug fixes
+20 January 2021: 1.5 bug fixes and changed requirements to MicrosoftTeams 1.1.10-preview
 
 .PRIVATEDATA
 
@@ -46,9 +46,9 @@ Script to add users to teams or to private team channels using a CSV file.
 .DESCRIPTION
 Script to add users to teams or to private team channels using a CSV file. Users are added using their email address.
 
-Requires MicrosoftTeams 1.1.5.
+Requires MicrosoftTeams 1.1.10-preview.
 
-Install-Module -Name MicrosoftTeams -RequiredVersion 1.1.5-preview -AllowPrerelease
+Install-Module -Name MicrosoftTeams -RequiredVersion 1.1.10-preview -AllowPrerelease
 
 Run Connect-MicrosoftTeams to connect to the AzureCloud before running this script.
 
@@ -126,7 +126,7 @@ Script provides also debug information. Useful when errors occur.
 
 #>
 
-#Requires -Module @{ModuleName = 'MicrosoftTeams'; RequiredVersion = '1.1.5'}
+#Requires -Module @{ModuleName = 'MicrosoftTeams'; RequiredVersion = '1.1.10'}
 
 Param (
 	[Parameter(ParameterSetName = "Inputparameter", Position = 0, HelpMessage="Input CSV file: ", Mandatory = $true)]
@@ -217,14 +217,14 @@ if (Test-Path -LiteralPath $CSVFileToProcess -PathType Leaf) {
 					Write-Debug "Obtaining GroupID from team: $theTeam"
 				}
 
-				$grpid = (Get-Team -DisplayName $theTeam).GroupId
+				$grpid = (Get-Team -DisplayName $theTeam) | Select-Object -ExpandProperty GroupId
 				if ($null -eq $grpid) {
-					Write-Error "Line $n, Get-Team: GroupID is null"
+					Write-Error "Line $n, Get-Team: GroupID of '$theTeam' is null"
 					EXIT
 				}
 
 				[System.Collections.ArrayList] $currentTeamMembers = @()
-				$list = (Get-TeamUser -GroupId $grpid).User
+				$list = (Get-TeamUser -GroupId $grpid) | Select-Object -ExpandProperty User
 				foreach ($m in $list) {
 					[void] $currentTeamMembers.Add($m)
 				}
@@ -238,7 +238,9 @@ if (Test-Path -LiteralPath $CSVFileToProcess -PathType Leaf) {
 				$changedTeam = 1
 			}
 			catch {
-				Write-Error $_.Exception.Message
+				if ($PSBoundParameters.ContainsKey('Debug')) {
+					Write-Error $_.Exception.Message
+				}
 				Write-Error "Line $n, Get-Team: Unable to connect to MicrosoftTeams (AzureCloud)"
 				Write-Error "Before running this script enter: Connect-MicrosoftTeams"
 				EXIT
@@ -257,7 +259,7 @@ if (Test-Path -LiteralPath $CSVFileToProcess -PathType Leaf) {
 				Add-TeamUser -GroupId $grpid -User $theEmail -Role $theRole
 				Write-Output "Line $n, added: $theEmail, role: $theRole to team: $theTeam"
 				$addedTeamMembers += 1
-				
+
 				[void] $currentTeamMembers.Add($theEmail)
 
 				if ($PSBoundParameters.ContainsKey('Debug')) {
@@ -266,8 +268,10 @@ if (Test-Path -LiteralPath $CSVFileToProcess -PathType Leaf) {
 				}
 			}
 			catch {
-				Write-Error $_.Exception.Message
-				Write-Error "Line $n, Error when executing Add-TeamUser"
+				if ($PSBoundParameters.ContainsKey('Debug')) {
+					Write-Error $_.Exception.Message
+				}
+				Write-Error "Line $n, Error when executing Add-TeamUser. Unknown email address: '$theEmail' (not a user)"
 				EXIT
 			}
 		}
@@ -277,7 +281,7 @@ if (Test-Path -LiteralPath $CSVFileToProcess -PathType Leaf) {
 			if (($currentChannel -ne $theChannel) -or ($changedTeam -eq 1)) {
 				try {
 					[System.Collections.ArrayList] $currentChannelMembers = @()
-					$list = (Get-TeamChannelUser -GroupId $grpid -DisplayName $theChannel).User
+					$list = (Get-TeamChannelUser -GroupId $grpid -DisplayName $theChannel) | Select-Object -ExpandProperty User
 					foreach ($m in $list) {
 						[void] $currentChannelMembers.Add($m)
 					}
@@ -288,7 +292,9 @@ if (Test-Path -LiteralPath $CSVFileToProcess -PathType Leaf) {
 					}
 				}
 				catch {
-					Write-Error $_.Exception.Message
+					if ($PSBoundParameters.ContainsKey('Debug')) {
+						Write-Error $_.Exception.Message
+					}
 					Write-Error "Line $n, Error when executing Get-TeamChannelUser"
 					EXIT
 				}
@@ -314,8 +320,10 @@ if (Test-Path -LiteralPath $CSVFileToProcess -PathType Leaf) {
 					}
 				}
 				catch {
-					Write-Error $_.Exception.Message
-					Write-Error "Line $n, Error when executing Add-TeamChannelUser"
+					if ($PSBoundParameters.ContainsKey('Debug')) {
+						Write-Error $_.Exception.Message
+					}
+					Write-Error "Line $n, Error when executing Add-TeamChannelUser, user: '$theEmail', channel: '$theChannel'"
 					EXIT
 				}
 			}
