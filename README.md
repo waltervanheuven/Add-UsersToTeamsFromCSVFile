@@ -4,7 +4,7 @@
 
 You can install the script by downloading the script from this github page or by installing it directly from the PowerShell Gallery:
 
-[https://www.powershellgallery.com/packages/Add-UsersToTeamsFromCSVFile](https://www.powershellgallery.com/packages/Add-UsersToTeamsFromCSVFile/1.4)
+[https://www.powershellgallery.com/packages/Add-UsersToTeamsFromCSVFile](https://www.powershellgallery.com/packages/Add-UsersToTeamsFromCSVFile/1.5)
 
 ## Installation instructions for Windows
 
