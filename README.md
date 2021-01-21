@@ -6,46 +6,40 @@ You can install the script by downloading the script from this github page or by
 
 [https://www.powershellgallery.com/packages/Add-UsersToTeamsFromCSVFile](https://www.powershellgallery.com/packages/Add-UsersToTeamsFromCSVFile/1.4)
 
-## Installation Instructions for Windows
+## Installation instructions for Windows
 
 Download and install the latest version (7.1) of the PowerShell from [github.com/PowerShell/PowerShell](https://github.com/PowerShell/PowerShell)
 
-### Start PowerShell 7 from the Start Menu, next install MicrosoftTeams and check installed modules
+Start PowerShell 7 from the Start Menu and install MicrosoftTeams module
 
 ```powershell
 Install-Module -Name MicrosoftTeams -RequiredVersion 1.1.10-preview -AllowPrerelease
 ```
 
-### Install Add-UsersToTeamsFromCSVFile and check installed scripts
+Install Add-UsersToTeamsFromCSVFile script
 
 ```powershell
 Install-Script -Name Add-UsersToTeamsFromCSVFile
 ```
 
-### Show Help
+## Installation instructions for macOS
 
-```powershell
-help Add-UsersToTeamsFromCSVFile.ps1
+Install PowerShell using [brew](https://brew.sh) in the Terminal App.
+
+```sh
+brew install powershell
 ```
 
-## Installation of the script on macOS
+Start powershell in Terminal
 
-Install the latest PowerShell using [brew](https://brew.sh) and start the PowerShell in the Terminal.
-
-```bash
-brew install powershell
+```sh
 pwsh
 ```
 
-### Install MicrosoftTeams and check the installed modules
+Install MicrosoftTeams and Script
 
 ```powershell
 Install-Module -Name MicrosoftTeams -RequiredVersion 1.1.10-preview -AllowPrerelease
-```
-
-### Install Add-UsersToTeamsFromCSVFile from the PowerShellGallery and check installed scripts
-
-```powershell
 Install-Script -Name Add-UsersToTeamsFromCSVFile
 ```
 
@@ -57,13 +51,17 @@ Get-InstalledScript -Name "Add-UsersToTeamsFromCSVFile" | Format-List InstalledL
 
 Add script path `/Users/[YOUR_USERNAME]/.local/share/powershell/Scripts/` to the path: `$env:PATH += ":/Users/[YOUR_USERNAME]/.local/share/powershell/Scripts/"`.
 
-Start script then with `Add-UsersToTeamsFromCSVFile.ps1`.
-
-## Check that MicrosoftTeams module and Add-UsersToTeamsFromCSVFile.ps1 script are installed
+## Check that module and script are installed
 
 ```powershell
 Get-Module -ListAvailable
 Get-InstalledScript
+```
+
+## Show Help
+
+```powershell
+help Add-UsersToTeamsFromCSVFile.ps1
 ```
 
 ## Update script to latest version
@@ -94,12 +92,10 @@ student3@university.ac.uk,Seminar Group,Channel2
 student4@university.ac.uk,Seminar Group,Channel2
 ```
 
-Note that the CSV file can have additional columns.
-
 ## Usage
 
 ```powershell
-# Sign in to Microsoft Teams (AzureCloud)
+# First connect to Microsoft Teams (AzureCloud)
 Connect-MicrosoftTeams
 
 # run script
