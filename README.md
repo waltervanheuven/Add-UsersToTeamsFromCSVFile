@@ -43,13 +43,17 @@ Install-Module -Name MicrosoftTeams -RequiredVersion 1.1.10-preview -AllowPrerel
 Install-Script -Name Add-UsersToTeamsFromCSVFile
 ```
 
-Get installed location of powershell gallery scripts.
+Get location of powershell gallery scripts.
 
 ```powershell
 Get-InstalledScript -Name "Add-UsersToTeamsFromCSVFile" | Format-List InstalledLocation
 ```
 
-Add script path `/Users/[YOUR_USERNAME]/.local/share/powershell/Scripts/` to the path: `$env:PATH += ":/Users/[YOUR_USERNAME]/.local/share/powershell/Scripts/"`.
+Due to PowerShell bug on macOS you need to add the installed script location `/Users/[YOUR_USERNAME]/.local/share/powershell/Scripts/` to the path so that the PowerShell can find the installed scripts.
+
+```powershell
+$env:PATH += ":/Users/[YOUR_USERNAME]/.local/share/powershell/Scripts/"
+```
 
 ## Check that module and script are installed
 
