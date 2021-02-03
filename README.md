@@ -4,7 +4,7 @@
 
 You can install the script by downloading the script from this github page or by installing it directly from the PowerShell Gallery:
 
-[https://www.powershellgallery.com/packages/Add-UsersToTeamsFromCSVFile](https://www.powershellgallery.com/packages/Add-UsersToTeamsFromCSVFile/1.5)
+[https://www.powershellgallery.com/packages/Add-UsersToTeamsFromCSVFile](https://www.powershellgallery.com/packages/Add-UsersToTeamsFromCSVFile/1.6)
 
 ## Installation instructions for Windows
 
@@ -95,6 +95,8 @@ student2@university.ac.uk,Seminar Group,Channel1
 student3@university.ac.uk,Seminar Group,Channel2
 student4@university.ac.uk,Seminar Group,Channel2
 ```
+
+Please note that if the team or private channel name contains a comma or quotes your need to use quotes around the name. For example, the team name `Seminar's team, 1` should have quotes around the name in the csv file: `"Seminar's team, 1"`. If you use Excel to create a CSV file and save the file as CSV, Excel will automatically add the quotes.
 
 ## Usage
 

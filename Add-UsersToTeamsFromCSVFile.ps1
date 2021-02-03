@@ -1,7 +1,7 @@
 
 <#PSScriptInfo
 
-.VERSION 1.5
+.VERSION 1.6
 
 .GUID 026e9227-935f-4717-8eea-97813f59400c
 
@@ -11,7 +11,7 @@
 
 .COPYRIGHT
 
-.TAGS MicrosoftTeams Teams Private-Channel Import CSV
+.TAGS Microsoft Teams, Teams, Private Channel, Import, CSV
 
 .LICENSEURI
 
@@ -27,12 +27,14 @@ MicrosoftTeams
 .EXTERNALSCRIPTDEPENDENCIES
 
 .RELEASENOTES
-06 October 2020: 1.0 First release
-08 October 2020: 1.1
-08 October 2020: 1.2
-09 October 2020: 1.3
+02 February 2021: 1.6 Fixed issue when adding newly added user to private channel
+20 January 2021: 1.5 Bug fixes and changed requirements to MicrosoftTeams 1.1.10-preview
 16 October 2020: 1.4
-20 January 2021: 1.5 bug fixes and changed requirements to MicrosoftTeams 1.1.10-preview
+09 October 2020: 1.3
+08 October 2020: 1.2
+08 October 2020: 1.1
+06 October 2020: 1.0 First release on PowerShell Gallery
+27 August 2020: Development of this script started with a script written by Jan Derrfuss
 
 .PRIVATEDATA
 
@@ -82,7 +84,9 @@ students.csv
 	student1@university.ac.uk, Module2 Team
 	student2@university.ac.uk, Module2 Team
 
-Scripts adds two students to two teams.
+Script adds two students to two teams.
+
+Please note that the team name should be surrounded by quotes when the name contains a comma or quotes.
 
 .EXAMPLE
 Add-UsersToTeamsFromCSVFile.ps1 .\students.csv
@@ -114,8 +118,8 @@ Add-UsersToTeamsFromCSVFile.ps1 .\users.csv
 Content of file: users.csv
 
 	email, team, privatechannel, role
-	student1@university.ac.uk, Module1 Team, Lab1, Member
-	lab.demonstrator1@university.ac.uk, Module1 Team, Lab1, Member
+	student1@university.ac.uk, "Module's Team", Lab1, Member
+	lab.demonstrator1@university.ac.uk, "Module's Team", Lab1, Member
 
 Script adds two users to private channels with the same team. Column 'role' indicates their role.
 
@@ -256,11 +260,33 @@ if (Test-Path -LiteralPath $CSVFileToProcess -PathType Leaf) {
 			}
 		} else {
 			try {
+				$oldN = ((Get-TeamUser -GroupId $grpid) | Select-Object -ExpandProperty User).count
 				Add-TeamUser -GroupId $grpid -User $theEmail -Role $theRole
-				Write-Output "Line $n, added: $theEmail, role: $theRole to team: $theTeam"
+				Write-Output "Line $n, added: '$theEmail', role: '$theRole' to team: '$theTeam'"
 				$addedTeamMembers += 1
 
 				[void] $currentTeamMembers.Add($theEmail)
+
+				if ($theChannel -ne "") {
+					# sleep 5 seconds to allow AzureCloud update
+					Start-Sleep -s 5
+
+					# make sure newly added user is indeed added, if not wait further until AzureCloud updates
+					$newN = ((Get-TeamUser -GroupId $grpid) | Select-Object -ExpandProperty User).count
+					$waitCnt = 0
+					while ($newN -le $oldN) {
+						if ($PSBoundParameters.ContainsKey('Debug')) {
+							Write-Output "Sleep..."
+						}
+						Start-Sleep -s 1
+						$newN = ((Get-TeamUser -GroupId $grpid) | Select-Object -ExpandProperty User).count
+						$waitCnt += 1
+						if ($waitCnt -gt 30) {
+							Write-Debug "Timeout Error. Unable to add user. Please try again."
+							EXIT
+						}
+					}
+				}
 
 				if ($PSBoundParameters.ContainsKey('Debug')) {
 					Write-Debug "Members:"
@@ -310,7 +336,7 @@ if (Test-Path -LiteralPath $CSVFileToProcess -PathType Leaf) {
 					} else {
 						Add-TeamChannelUser -GroupId $grpid -DisplayName $theChannel -User $theEmail
 					}
-					Write-Output "Line $n, added: $theEmail, role: $theRole to private channel: $theChannel in team: $theTeam"
+					Write-Output "Line $n, added: '$theEmail', to private channel: '$theChannel' in team: '$theTeam'"
 					$addedChannelMembers += 1
 					[void] $currentChannelMembers.Add($theEmail)
 
