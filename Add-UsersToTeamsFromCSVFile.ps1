@@ -1,7 +1,7 @@
 
 <#PSScriptInfo
 
-.VERSION 1.6
+.VERSION 1.7
 
 .GUID 026e9227-935f-4717-8eea-97813f59400c
 
@@ -27,6 +27,7 @@ MicrosoftTeams
 .EXTERNALSCRIPTDEPENDENCIES
 
 .RELEASENOTES
+28 April 2021: 1.7 Changed script so that it does not exit when email address is unknown
 02 February 2021: 1.6 Fixed issue when adding newly added user to private channel
 20 January 2021: 1.5 Bug fixes and changed requirements to MicrosoftTeams 1.1.10-preview
 16 October 2020: 1.4
@@ -298,7 +299,7 @@ if (Test-Path -LiteralPath $CSVFileToProcess -PathType Leaf) {
 					Write-Error $_.Exception.Message
 				}
 				Write-Error "Line $n, Error when executing Add-TeamUser. Unknown email address: '$theEmail' (not a user)"
-				EXIT
+				#EXIT
 			}
 		}
 
