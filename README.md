@@ -8,9 +8,9 @@ You can install the script by downloading the script from this github page or by
 
 ## Installation instructions for Windows
 
-Download and install the latest version (7.1) of the PowerShell from [github.com/PowerShell/PowerShell](https://github.com/PowerShell/PowerShell)
+Download and install PowerShell from [github.com/PowerShell/PowerShell](https://github.com/PowerShell/PowerShell)
 
-Start PowerShell 7 from the Start Menu and install MicrosoftTeams module
+Start PowerShell from the Start Menu and install MicrosoftTeams module
 
 ```powershell
 Install-Module -Name MicrosoftTeams -RequiredVersion 1.1.10-preview -AllowPrerelease
@@ -30,7 +30,7 @@ Install PowerShell using [brew](https://brew.sh) in the Terminal App.
 brew install powershell
 ```
 
-Start powershell in Terminal
+Start PowerShell in Terminal
 
 ```sh
 pwsh
@@ -43,7 +43,7 @@ Install-Module -Name MicrosoftTeams -RequiredVersion 1.1.10-preview -AllowPrerel
 Install-Script -Name Add-UsersToTeamsFromCSVFile
 ```
 
-Get location of powershell gallery scripts.
+Get location of PowerShell gallery scripts.
 
 ```powershell
 Get-InstalledScript -Name "Add-UsersToTeamsFromCSVFile" | Format-List InstalledLocation
